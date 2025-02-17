@@ -11,8 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CaptchaController extends AbstractController
 {
-    public function __construct(private readonly CaptchaService $captchaService)
+    private CaptchaService $captchaService;
+    public function __construct(CaptchaService $captchaService)
     {
+        $this->captchaService = $captchaService;
     }
 
     #[Route('/agilelab_fr/captchabundle/generate-captcha', name: 'agilelabfr_generate_captcha')]
