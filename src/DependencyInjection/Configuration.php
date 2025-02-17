@@ -11,13 +11,15 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('captcha_bundle');
 
-        $treeBuilder->getRootNode()
+        $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
             ->children()
             ->integerNode('width')->defaultValue(120)->end()
             ->integerNode('height')->defaultValue(40)->end()
             ->integerNode('length')->defaultValue(6)->end()
             ->integerNode('lines')->defaultValue(8)->end()
-            ->stringNode('characters')->defaultValue('ABCDEFGHJKLMNPQRSTUVWXYZ23456789')->end()
+            ->scalarNode('characters')->defaultValue('ABCDEFGHJKLMNPQRSTUVWXYZ23456789')->end()
             ->end();
 
         return $treeBuilder;
