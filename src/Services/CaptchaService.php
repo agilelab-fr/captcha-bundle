@@ -7,16 +7,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CaptchaService
 {
-
     private ParameterBagInterface $params;
 
-    public function __construct(ParameterBagInterface $params) {
+    public function __construct(ParameterBagInterface $params)
+    {
         $this->params = $params;
     }
 
     public function generateCaptcha(Request $request): string
     {
-        $parameters = $this->params->get('agilelabfr_captcha');
+        $parameters = $this->params->get('captcha_bundle');
         $width = $parameters['width'] ?? 120;
         $height = $parameters['height'] ?? 40;
         $length = $parameters['length'] ?? 6;
