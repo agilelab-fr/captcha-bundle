@@ -9,6 +9,13 @@ This bundle provides an easy way to integrate CAPTCHA validation into Symfony fo
 composer require agilelab-fr/captcha-bundle
 ```
 
+After installation, you need to uncomment the following line in config/packages/agilelab_fr_captcha.yaml
+```yaml
+twig:
+   form_themes:
+      - '@AgilelabFrCaptcha/form/agilelab_fr_captcha.html.twig'
+```
+
 ### **For Non-Flex Projects**
 1. Install via Composer:
    ```
@@ -38,13 +45,14 @@ If you are **not using Symfony Flex**, manually add these configurations:
 
 ### **1. Configuration File (`config/packages/agilelab_fr_captcha.yaml`)**
 ```yaml
-agilelabfr_captcha:
+captcha_bundle:
     width: 120
     height: 40
     length: 6
     lines: 8
     characters: 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 
+# Uncomment to render the twig block for captcha
 twig:
     form_themes:
         - '@AgilelabFrCaptcha/form/agilelab_fr_captcha.html.twig'
