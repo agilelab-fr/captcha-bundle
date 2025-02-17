@@ -14,7 +14,7 @@ class CaptchaService
         $this->params = $params;
     }
 
-    public function generateCaptcha(Request $request): false|string
+    public function generateCaptcha(Request $request): string
     {
         $parameters = $this->params->get('agilelabfr_captcha');
         $width = $parameters['width'] ?? 120;
