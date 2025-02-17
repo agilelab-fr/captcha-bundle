@@ -1,0 +1,36 @@
+{
+    "name": "agilelab-fr/captcha-bundle",
+    "description": "This bundle provides an easy way to integrate CAPTCHA validation into Symfony forms using the AlCaptchaType form field. It enhances security by preventing automated submissions while ensuring seamless user experience.",
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=8.1",
+        "symfony/form": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/config": "^7.0",
+        "symfony/http-kernel": "^7.0"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": "^7.0",
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.69"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AgilelabFr\\CaptchaBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AgilelabFr\\CaptchaBundle\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Agilelab",
+            "email": "contact@agilelab.fr"
+        }
+    ],
+    "minimum-stability": "stable"
+}

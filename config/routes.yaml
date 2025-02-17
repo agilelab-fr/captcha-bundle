@@ -1,0 +1,5 @@
+agilelab_fr_captcha_bundle:
+  resource:
+    path: ../src/Controller/
+    namespace: AgilelabFr\CaptchaBundle\Controller
+  type: attribute
