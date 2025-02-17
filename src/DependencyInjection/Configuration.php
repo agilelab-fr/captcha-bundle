@@ -13,15 +13,11 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-            ->arrayNode('agilelab_fr_captcha')
-            ->children()
             ->integerNode('width')->defaultValue(120)->end()
             ->integerNode('height')->defaultValue(40)->end()
             ->integerNode('length')->defaultValue(6)->end()
             ->integerNode('lines')->defaultValue(8)->end()
             ->scalarNode('characters')->defaultValue('ABCDEFGHJKLMNPQRSTUVWXYZ23456789')->end()
-            ->end()
-            ->end()
             ->end();
 
         return $treeBuilder;
