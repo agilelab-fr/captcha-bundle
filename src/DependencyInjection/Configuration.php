@@ -15,11 +15,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->integerNode('width')->defaultValue(120)->end()
-            ->integerNode('height')->defaultValue(40)->end()
-            ->integerNode('length')->defaultValue(6)->end()
-            ->integerNode('lines')->defaultValue(8)->end()
-            ->scalarNode('characters')->defaultValue('ABCDEFGHJKLMNPQRSTUVWXYZ23456789')->end()
+                ->integerNode('width')->end()
+                ->integerNode('height')->end()
+                ->integerNode('length')->end()
+                ->integerNode('lines')->end()
+                ->scalarNode('characters')->end()
             ->end();
 
         return $treeBuilder;
