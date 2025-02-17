@@ -17,7 +17,7 @@ class CaptchaController extends AbstractController
         $this->captchaService = $captchaService;
     }
 
-    #[Route('/agilelab_fr/captchabundle/generate-captcha', name: 'agilelabfr_generate_captcha')]
+    #[Route('/agilelab_fr/captchabundle/generate-captcha', name: 'agilelab_fr_captcha_generate')]
     public function generateCaptcha(Request $request): Response
     {
 

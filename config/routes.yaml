@@ -1,5 +1,4 @@
-agilelab_fr_captcha_bundle:
-  resource:
-    path: ../src/Controller/
-    namespace: AgilelabFr\CaptchaBundle\Controller
-  type: attribute
+agilelab_fr_captcha_generate:
+  path: /agilelab_fr/captchabundle/generate-captcha
+  controller: AgilelabFr\CaptchaBundle\Controller\CaptchaController::generateCaptcha
+  methods: [ GET ]
