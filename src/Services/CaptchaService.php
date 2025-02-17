@@ -16,12 +16,11 @@ class CaptchaService
 
     public function generateCaptcha(Request $request): string
     {
-        $parameters = $this->params->get('captcha_bundle');
-        $width = $parameters['width'] ?? 120;
-        $height = $parameters['height'] ?? 40;
-        $length = $parameters['length'] ?? 6;
-        $lines = $parameters['lines'] ?? 8;
-        $characters = $parameters['characters'] ?? 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        $width = $this->params->get('captcha_bundle.width') ?? 120;
+        $height = $this->params->get('captcha_bundle.height') ?? 40;
+        $length = $this->params->get('captcha_bundle.length') ?? 6;
+        $lines = $this->params->get('captcha_bundle.lines') ?? 8;
+        $characters = $this->params->get('captcha_bundle.characters') ?? 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
         // Generate random CAPTCHA text
         $captchaText = '';

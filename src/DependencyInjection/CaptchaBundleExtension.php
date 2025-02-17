@@ -21,5 +21,10 @@ class CaptchaBundleExtension extends Extension
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        $container->setParameter('captcha_bundle.width', $config['width']);
+        $container->setParameter('captcha_bundle.height', $config['height']);
+        $container->setParameter('captcha_bundle.length', $config['length']);
+        $container->setParameter('captcha_bundle.lines', $config['lines']);
+        $container->setParameter('captcha_bundle.characters', $config['characters']);
     }
 }
