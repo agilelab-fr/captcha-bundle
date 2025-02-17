@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CaptchaService
 {
-    public function __construct(
-        private ParameterBagInterface $params,
-    ) {
+
+    private ParameterBagInterface $params;
+
+    public function __construct(ParameterBagInterface $params) {
+        $this->params = $params;
     }
 
     public function generateCaptcha(Request $request): false|string

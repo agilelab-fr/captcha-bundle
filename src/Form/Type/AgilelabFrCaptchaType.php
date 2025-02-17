@@ -15,8 +15,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AgilelabFrCaptchaType extends AbstractType
 {
-    public function __construct(private RequestStack $requestStack)
+
+    private RequestStack $requestStack;
+
+    public function __construct(RequestStack $requestStack)
     {
+        $this->requestStack = $requestStack;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
