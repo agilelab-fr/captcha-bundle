@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
             ->integerNode('height')->defaultValue(40)->end()
             ->integerNode('length')->defaultValue(6)->end()
             ->integerNode('lines')->defaultValue(8)->end()
-            ->scalarNode('characters')->defaultValue('ABCDEFGHJKLMNPQRSTUVWXYZ23456789')->end()
+            ->stringNode('characters')->defaultValue('ABCDEFGHJKLMNPQRSTUVWXYZ23456789')->end()
             ->end();
 
         return $treeBuilder;

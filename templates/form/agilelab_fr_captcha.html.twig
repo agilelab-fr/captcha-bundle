@@ -1,0 +1,6 @@
+{% block agilelab_fr_captcha_widget %}
+    <div class="agilelab_captcha_image">
+        <img src="{{ path('agilelabfr_generate_captcha') }}" alt="agilelab.fr captcha">
+    </div>
+    {{ block('form_widget_simple') }}
+{% endblock %}
