@@ -50,6 +50,6 @@ jobs:
       - name: Run PHPStan (Static Analysis on the bundle)
         run: |
           # Install PHPStan if not installed
-          composer install
+          composer require --dev phpstan/phpstan
           # Run PHPStan on the local bundle (../), with the custom configuration file (phpstan.neon)
-          vendor/bin/phpstan analyse ../ --configuration=phpstan.dist.neon --level max
+          vendor/bin/phpstan analyse -c phpstan.dist.neon
