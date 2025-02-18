@@ -39,4 +39,4 @@ jobs:
         run: |
           cd symfony-test-project
           composer config repositories.local '{"type": "path", "url": "../../"}'
-          composer require agilelab/captcha-bundle:@dev
+          composer require agilelab-fr/captcha-bundle:@dev
