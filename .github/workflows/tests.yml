@@ -38,9 +38,8 @@ jobs:
       - name: Configure Composer to use local bundle
         run: |
           cd symfony-test-project
-          composer config minimum-stability dev
           composer config prefer-stable true
-          composer config repositories.local '{"type": "path", "url": "../"}'
+          composer config repositories.local '{"type": "path", "url": "../../"}'
           composer clear-cache
 
       - name: Install the local version of the bundle
