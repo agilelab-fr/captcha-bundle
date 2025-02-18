@@ -1,5 +1,7 @@
 # AgilelabFr CAPTCHA Bundle
 
+![Captcha Bundle in action](assets/images/captchaBundle.jpg)
+
 This bundle provides an easy way to integrate CAPTCHA validation into Symfony forms using the `AgilelabFrCaptchaType` form field. It enhances security by preventing automated submissions while ensuring a seamless user experience.
 
 ## Installation
