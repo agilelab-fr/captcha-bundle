@@ -38,5 +38,5 @@ jobs:
       - name: Install your bundle
         run: |
           cd symfony-test-project
-          composer config repositories.local '{"type": "path", "url": "../"}'
+          composer config repositories.local '{"type": "path", "url": "../../"}'
           composer require agilelab/captcha-bundle:@dev
