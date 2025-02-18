@@ -1,0 +1,42 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: CI Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, intl
+          tools: composer, symfony
+
+      - name: Create Symfony 7 project
+        run: |
+          composer create-project symfony/skeleton:^7.0 symfony-test-project
+          cd symfony-test-project
+
+      - name: Install your bundle
+        run: |
+          cd symfony-test-project
+          composer config repositories.local '{"type": "path", "url": "../"}'
+          composer require agilelab/captcha-bundle:@dev
