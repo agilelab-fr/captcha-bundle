@@ -46,3 +46,10 @@ jobs:
         run: |
           cd symfony-test-project
           composer require agilelab-fr/captcha-bundle:@dev --no-cache
+
+      - name: Run PHPStan (Static Analysis on the bundle)
+        run: |
+          # Install PHPStan if not installed
+          composer install
+          # Run PHPStan on the local bundle (../), with the custom configuration file (phpstan.neon)
+          vendor/bin/phpstan analyse ../ --configuration=phpstan.dist.neon --level max
