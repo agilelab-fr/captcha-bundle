@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('captcha_bundle');
 
-        $rootNode = method_exists(TreeBuilder::class, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('captcha_bundle');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
