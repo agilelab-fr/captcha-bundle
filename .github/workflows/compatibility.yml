@@ -1,0 +1,110 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Symfony 5 - 6 - 7 Compatibility
+
+on:
+  workflow_run:
+    workflows: [ "Code Standards" ]
+    types:
+      - completed
+  push:
+  pull_request:
+
+jobs:
+  symfony5:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: mbstring, intl
+          tools: composer, symfony
+
+      - name: Create Symfony 5.4 project
+        run: |
+          composer create-project symfony/skeleton:^5.0 symfony-test-project
+          cd symfony-test-project
+
+      - name: Configure Composer to use local bundle
+        run: |
+          cd symfony-test-project
+          composer config prefer-stable true
+          composer config repositories.local '{"type": "path", "url": "../"}'
+          composer clear-cache
+
+      - name: Install the local version of the bundle
+        run: |
+          cd symfony-test-project
+          composer require agilelab-fr/captcha-bundle:@dev --no-cache
+          
+
+  symfony6:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: mbstring, intl
+          tools: composer, symfony
+
+      - name: Create Symfony 6 project
+        run: |
+          composer create-project symfony/skeleton:^6.0 symfony-test-project
+          cd symfony-test-project
+
+      - name: Configure Composer to use local bundle
+        run: |
+          cd symfony-test-project
+          composer config prefer-stable true
+          composer config repositories.local '{"type": "path", "url": "../"}'
+          composer clear-cache
+
+      - name: Install the local version of the bundle
+        run: |
+          cd symfony-test-project
+          composer require agilelab-fr/captcha-bundle:@dev --no-cache
+          
+
+  symfony7:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, intl
+          tools: composer, symfony
+
+      - name: Create Symfony 7 project
+        run: |
+          composer create-project symfony/skeleton:^7.0 symfony-test-project
+          cd symfony-test-project
+
+      - name: Configure Composer to use local bundle
+        run: |
+          cd symfony-test-project
+          composer config prefer-stable true
+          composer config repositories.local '{"type": "path", "url": "../"}'
+          composer clear-cache
+
+      - name: Install the local version of the bundle
+        run: |
+          cd symfony-test-project
+          composer require agilelab-fr/captcha-bundle:@dev --no-cache
