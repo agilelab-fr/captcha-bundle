@@ -59,7 +59,7 @@ jobs:
       - name: Install the local version of the bundle
         run: |
           cd symfony-test-project
-          composer require agilelab-fr/captcha-bundle:@dev --no-cache
+          composer require agilelab-fr/captcha-bundle:@dev --no-cache  --with-dependencies
           
 
   symfony6:
@@ -91,7 +91,7 @@ jobs:
       - name: Install the local version of the bundle
         run: |
           cd symfony-test-project
-          composer require agilelab-fr/captcha-bundle:@dev --no-cache
+          composer require agilelab-fr/captcha-bundle:@dev --no-cache --with-dependencies
           
 
   symfony7:
@@ -123,4 +123,4 @@ jobs:
       - name: Install the local version of the bundle
         run: |
           cd symfony-test-project
-          composer require agilelab-fr/captcha-bundle:@dev --no-cache
+          composer require agilelab-fr/captcha-bundle:@dev --no-cache --with-dependencies
