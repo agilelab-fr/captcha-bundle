@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Symfony 5 - 6 - 7 Compatibility
+name: Checks
 
 on:
   workflow_run:
@@ -14,6 +14,26 @@ on:
   pull_request:
 
 jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, intl
+          tools: composer
+
+      - name: Run PHPStan (Static Analysis on the bundle)
+        run: |
+          # Install PHPStan if not installed
+          composer require --dev phpstan/phpstan
+          # Run PHPStan on the local bundle (../), with the custom configuration file (phpstan.neon)
+          vendor/bin/phpstan analyse -c phpstan.dist.neon
   symfony5:
     runs-on: ubuntu-latest
 
@@ -30,7 +50,7 @@ jobs:
 
       - name: Create Symfony 5.4 project
         run: |
-          composer create-project symfony/skeleton:^5.0 symfony-test-project
+          composer create-project symfony/skeleton:^5 symfony-test-project
           cd symfony-test-project
 
       - name: Configure Composer to use local bundle
@@ -62,7 +82,7 @@ jobs:
 
       - name: Create Symfony 6 project
         run: |
-          composer create-project symfony/skeleton:^6.0 symfony-test-project
+          composer create-project symfony/skeleton:^6 symfony-test-project
           cd symfony-test-project
 
       - name: Configure Composer to use local bundle
@@ -94,7 +114,7 @@ jobs:
 
       - name: Create Symfony 7 project
         run: |
-          composer create-project symfony/skeleton:^7.0 symfony-test-project
+          composer create-project symfony/skeleton:^7 symfony-test-project
           cd symfony-test-project
 
       - name: Configure Composer to use local bundle
