@@ -46,7 +46,7 @@ jobs:
 
       - name: Create Symfony 5.4 project
         run: |
-          composer create-project symfony/skeleton:^5 symfony-test-project
+          composer create-project symfony/skeleton:^5.4 symfony-test-project
           cd symfony-test-project
 
       - name: Configure Composer to use local bundle
@@ -78,7 +78,7 @@ jobs:
 
       - name: Create Symfony 6 project
         run: |
-          composer create-project symfony/skeleton:^6 symfony-test-project
+          composer create-project symfony/skeleton:^6.4 symfony-test-project
           cd symfony-test-project
 
       - name: Configure Composer to use local bundle
