@@ -1,4 +1,4 @@
-# AgilelabFr CAPTCHA Bundle
+# AgilelabFr Symfony CAPTCHA Bundle
 
 ![Captcha Bundle in action](assets/images/captchaBundle.jpg)
 
@@ -53,6 +53,7 @@ captcha_bundle:
     length: 6
     lines: 8
     characters: 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    case_sensitive: true
 
 # Uncomment to render the twig block for captcha
 twig:
