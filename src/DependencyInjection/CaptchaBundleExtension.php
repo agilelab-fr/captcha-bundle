@@ -26,5 +26,6 @@ class CaptchaBundleExtension extends Extension
         $container->setParameter('captcha_bundle.length', $config['length']);
         $container->setParameter('captcha_bundle.lines', $config['lines']);
         $container->setParameter('captcha_bundle.characters', $config['characters']);
+        $container->setParameter('captcha_bundle.case_sensitive', $config['case_sensitive']);
     }
 }
