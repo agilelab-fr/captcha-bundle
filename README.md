@@ -1,4 +1,4 @@
-# AgilelabFr CAPTCHA Bundle
+# AgilelabFr Symfony CAPTCHA Bundle
 
 ![Captcha Bundle in action](assets/images/captchaBundle.jpg)
 
