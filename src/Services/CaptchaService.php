@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,7 +30,8 @@ class CaptchaService
             'height' => [new NotBlank(), new Positive()],
             'length' => [new NotBlank(), new Positive()],
             'lines' => [new NotBlank(), new Positive()],
-            'characters' => [new NotBlank(), new Length(['min' => 6])]
+            'characters' => [new NotBlank(), new Length(['min' => 6])],
+            'case_sensitive' => [new Type('boolean')]
         ]);
 
         $errors = $this->validator->validate($config, $constraints);
@@ -51,6 +53,7 @@ class CaptchaService
         $config['length'] = (int)$this->params->get('captcha_bundle.length') ?? 6;
         $config['lines'] = (int)$this->params->get('captcha_bundle.lines') ?? 8;
         $config['characters'] = $this->params->get('captcha_bundle.characters') ?? 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        $config['case_sensitive'] = $this->params->get('captcha_bundle.case_sensitive');
 
         $this->validateConfig($config);
 
