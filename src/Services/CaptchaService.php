@@ -48,12 +48,16 @@ class CaptchaService
     public function generateCaptcha(Request $request): string
     {
 
+        $options = json_decode($request->query->get('options'), true);
+
         $config['width'] = (int)$this->params->get('captcha_bundle.width') ?? 120;
         $config['height'] = (int)$this->params->get('captcha_bundle.height') ?? 40;
         $config['length'] = (int)$this->params->get('captcha_bundle.length') ?? 6;
         $config['lines'] = (int)$this->params->get('captcha_bundle.lines') ?? 8;
         $config['characters'] = $this->params->get('captcha_bundle.characters') ?? 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
         $config['case_sensitive'] = $this->params->get('captcha_bundle.case_sensitive');
+
+        $config = array_replace_recursive($config, array_filter($options, fn ($value) => !is_null($value)));
 
         $this->validateConfig($config);
 
@@ -69,12 +73,25 @@ class CaptchaService
 
         // Create original CAPTCHA image
         $image = imagecreatetruecolor($config['width'], $config['height']);
-        $bgColor = imagecolorallocate($image, 230, 230, 230);
-        $textColor = imagecolorallocate($image, 20, 40, 100);
         $lineColor = imagecolorallocate($image, 100, 120, 180);
 
-        // Fill background
+        // Generate a random light or dark background color
+        $bgR = rand(180, 255);
+        $bgG = rand(180, 255);
+        $bgB = rand(180, 255);
+        $bgColor = imagecolorallocate($image, $bgR, $bgG, $bgB);
         imagefill($image, 0, 0, $bgColor);
+
+        // Calculate background luminance (perceived brightness)
+        $luminance = (0.299 * $bgR + 0.587 * $bgG + 0.114 * $bgB) / 255;
+
+        if ($luminance > 0.5) {
+            // If background is light, use dark text
+            $textColor = imagecolorallocate($image, rand(0, 50), rand(0, 50), rand(0, 50));
+        } else {
+            // If background is dark, use light text
+            $textColor = imagecolorallocate($image, rand(200, 255), rand(200, 255), rand(200, 255));
+        }
 
         // Add random lines
         for ($i = 0; $i < $config['lines']; $i++) {
@@ -87,16 +104,44 @@ class CaptchaService
             imagesetpixel($image, rand(0, $config['width']), rand(0, $config['height']), $lineColor);
         }
 
-        // Add CAPTCHA text
-        $fontSize = rand(18, 22);
-        $x = rand(10, 20);
-        $y = rand(25, 35);
-        $fontPath = __DIR__.'/../../assets/fonts/Roboto-VariableFont.ttf';
+        // Calculate max width per character, leaving some margin
+        $charCount = strlen($captchaText);
+        $padding = max(5, $config['width'] * 0.05); // Ensure padding is at least 5px
+        $availableWidth = $config['width'] - (2 * $padding);
+        $maxCharWidth = floor($availableWidth / $charCount);
 
-        if (!file_exists($fontPath)) {
-            imagestring($image, 5, $x, $y - 10, 'ERR', $textColor);
-        } else {
-            imagettftext($image, $fontSize, rand(-10, 10), $x, $y, $textColor, $fontPath, $captchaText);
+        // Calculate maximum font size based on both image height and available width
+        // For instance, we use 70% of the image height and 80% of each character slot.
+        $maxFontSize = (int) min($config['height'] * 0.7, $maxCharWidth * 0.8);
+        if ($maxFontSize < 10) {
+            $maxFontSize = 10;
+        }
+        // Define a lower bound for variation (80% of the max)
+        $minFontSize = max(14, (int) ($maxFontSize * 0.8)); // Minimum font size is 14px
+
+        // Add CAPTCHA text
+        // Ensure font size doesn't exceed character width
+        $x = (int) ($padding + ($maxCharWidth / 4)); // Small offset to center better
+
+        $fontsPath = __DIR__ . '/../../assets/fonts/';
+        $fonts = glob($fontsPath . '*.ttf');
+
+        foreach (str_split($captchaText) as $char) {
+            // Pick a random font for this character
+            $fontFile = $fonts ? $fonts[array_rand($fonts)] : null;
+            $fontSize = rand($minFontSize, $maxFontSize);
+            $angle = rand(-20, 20);
+            $y = rand($config['height'] / 2, $config['height'] - 10); // Keep text within the height range
+
+            // Apply text with the selected font
+            if ($fontFile) {
+                imagettftext($image, $fontSize, $angle, $x, $y, $textColor, $fontFile, $char);
+            } else {
+                imagestring($image, $x, 10, $y - 20, $char, $textColor);
+            }
+
+            // Adjust X position for the next character
+            $x += (int)$maxCharWidth;
         }
 
         // Capture output
