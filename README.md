@@ -76,12 +76,14 @@ Example usage in a form builder:
 ```php
 ->add('captcha', AgilelabFrCaptchaType::class, [
     'label' => 'Captcha',
-    'width' => 120,
-    'height' => 40,
-    'lines' => 6,
-    'length' => 5,
-    'characters' => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
-    'case_sensitive' => false,
+    'attr' => [
+        'width' => 120,
+        'height' => 40,
+        'lines' => 6,
+        'length' => 5,
+        'characters' => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
+        'case_sensitive' => false,
+    ],
 ])
 ```
 
