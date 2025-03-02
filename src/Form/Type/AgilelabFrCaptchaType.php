@@ -27,22 +27,6 @@ class AgilelabFrCaptchaType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
-            $form = $event->getForm();
-
-            // Inject options into the form vars for use in the template
-            $form->add('captcha', null, [
-                'attr' => [
-                    'width' => $options['width'],
-                    'height' => $options['height'],
-                    'length' => $options['length'],
-                    'lines' => $options['lines'],
-                    'characters' => $options['characters'],
-                    'case_sensitive' => $options['case_sensitive'],
-                ],
-            ]);
-        });
-
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $captchaValue = $event->getData();
             $form = $event->getForm();
@@ -71,16 +55,4 @@ class AgilelabFrCaptchaType extends AbstractType
         return TextType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'width' => null,  // Default to null (if not provided, will fall back to config)
-            'height' => null, // Same here
-            'length' => null, // Same here
-            'lines' => null, // Same here
-            'characters' => null, // Same here
-            'case_sensitive' => null, // Same here
-            'compound' => true,
-        ]);
-    }
 }

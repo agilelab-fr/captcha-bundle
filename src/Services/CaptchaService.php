@@ -59,7 +59,14 @@ class CaptchaService
 
         $config = array_replace_recursive($config, array_filter($options, fn ($value) => !is_null($value)));
 
-        $this->validateConfig($config);
+        $this->validateConfig([
+            'width' => $config['width'],
+            'height' => $config['height'],
+            'length' => $config['length'],
+            'lines' => $config['lines'],
+            'characters' => $config['characters'],
+            'case_sensitive' => $config['case_sensitive']
+        ]);
 
         // Generate random CAPTCHA text
         $captchaText = '';
