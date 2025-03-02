@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CaptchaController extends AbstractController
 {
     private CaptchaService $captchaService;
+
     public function __construct(CaptchaService $captchaService)
     {
         $this->captchaService = $captchaService;
